@@ -14,8 +14,9 @@ public class StationConfig {
     @Bean
     CommandLineRunner commandLineRunner(StationRepository repository){
         return args -> {
-            if (!repository.existsById(1)){
-                System.out.println("Creating database...");
+            // Initialize stations table from CSV file
+            if (!repository.existsById(1)){ // table is empty: initialize
+                System.out.println("Initializing stations table...");
                 Station station;
 
                 CSVReader reader = new CSVReader(new FileReader("C:/Users/Stefan/Documents/fullstack22/Solita/stations.csv"));
@@ -39,10 +40,10 @@ public class StationConfig {
 
                     repository.save(station);
                 }
-                System.out.println("Database created");
+                System.out.println("Stations table initialized");
             }
             else {
-                System.out.println("Database ready");
+                System.out.println("Stations table ready");
             }
         };
     }
