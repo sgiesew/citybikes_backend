@@ -1,6 +1,7 @@
 package com.phonephreak.citybikes_backend.station;
 
 import java.io.FileReader;
+import java.nio.charset.StandardCharsets;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +20,7 @@ public class StationConfig {
                 System.out.println("Initializing stations table...");
                 Station station;
 
-                CSVReader reader = new CSVReader(new FileReader("C:/Users/Stefan/Documents/fullstack22/Solita/stations.csv"));
+                CSVReader reader = new CSVReader(new FileReader("C:/Users/Stefan/Documents/fullstack22/Solita/stations.csv", StandardCharsets.UTF_8));
                 String [] nextLine;
                 nextLine = reader.readNext(); // skip header
                 String city;

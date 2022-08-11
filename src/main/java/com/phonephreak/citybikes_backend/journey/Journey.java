@@ -24,7 +24,8 @@ public class Journey {
     private Integer duration;    
 
     public Journey(){
-
+        this.distance = 0;
+        this.duration = 0;
     }
 
     public Journey(String departure_station_code,

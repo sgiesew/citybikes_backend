@@ -1,10 +1,12 @@
 package com.phonephreak.citybikes_backend.journey;
 
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin    //!!!
 @RestController
 @RequestMapping(path = "api/journey")
 public class JourneyController {
@@ -13,7 +15,7 @@ public class JourneyController {
 
     public JourneyController(JourneyService journeyService) {
         this.journeyService = journeyService;
-        System.out.println("-- controller initialized --");
+        System.out.println("-- journey controller initialized --");
     }
 
     @GetMapping(path = "{journeyId}")
@@ -24,14 +26,17 @@ public class JourneyController {
     public List<Journey> getJourneys(){
         return journeyService.getJourneys();
     }
-    @PostMapping
-    public void addNewJourney(@RequestBody Journey journey){
-        journeyService.addNewJourney(journey);
+    @GetMapping(path = "page/{pageNr}/len/{pageLen}")
+    public Page<Journey> getJourneysPage(@PathVariable("pageNr") Integer pageNr, @PathVariable("pageLen") Integer pageLen){
+        return journeyService.getJourneysPage(pageNr, pageLen);
     }
-    @DeleteMapping(path= "{journeyId}")
-    public void deleteJourney(@PathVariable("journeyId") Integer journeyId){
-        journeyService.deleteJourney(journeyId);
+    @GetMapping(path = "from_station/{stationId}")
+    public long getNumJourneysFromStation(@PathVariable("stationId") String stationId){
+        return journeyService.getNumJourneysFromStation(stationId);
     }
-
+    @GetMapping(path = "to_station/{stationId}")
+    public long getNumJourneysToStation(@PathVariable("stationId") String stationId){
+        return journeyService.getNumJourneysToStation(stationId);
+    }
 
 }

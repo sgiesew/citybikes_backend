@@ -21,7 +21,7 @@ public class Station {
     private String address;
     private String city;
     private float pos_x;    
-    private float pos_y;    
+    private float pos_y;
 
     public Station(){
 
@@ -40,6 +40,14 @@ public class Station {
         this.city = city;
         this.pos_x = pos_x;
         this.pos_y = pos_y;
+    }
+
+    public Integer getStation_id(){
+        return station_id;
+    }
+
+    public void setStation_id(Integer station_id){
+        this.station_id = station_id;
     }
 
     public String getStation_code(){
@@ -89,4 +97,5 @@ public class Station {
     public float getPos_y(){
         return pos_y;
     }
+
 }

@@ -14,7 +14,6 @@ public class StationService {
     @Autowired
     public StationService(StationRepository stationRepository) {
         this.stationRepository = stationRepository;
-        System.out.println("-- service initialized --");
     }
 
     public Optional<Station> getStation(Integer station_id) {
@@ -23,8 +22,8 @@ public class StationService {
             throw new IllegalStateException("The station with the given ID doesn't exist");
         }
         return stationRepository.findById(station_id);
-
     }
+    
     public List<Station> getStations() {
         return stationRepository.findAll();
     }

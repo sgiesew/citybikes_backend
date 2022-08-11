@@ -2,6 +2,7 @@ package com.phonephreak.citybikes_backend.journey;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -14,7 +15,7 @@ import com.opencsv.exceptions.CsvValidationException;
 public class JourneyConfig {
 
     private void readCSVData(JourneyRepository repository, String filename) throws CsvValidationException, IOException{
-        CSVReader reader = new CSVReader(new FileReader(filename));
+        CSVReader reader = new CSVReader(new FileReader(filename, StandardCharsets.UTF_8));
         Journey journey;
         String [] nextLine;
         nextLine = reader.readNext(); // skip header
