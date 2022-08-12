@@ -3,11 +3,14 @@ package com.phonephreak.citybikes_backend.station;
 import com.phonephreak.citybikes_backend.journey.JourneyService;
 
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
-@CrossOrigin    //!!!
+@CrossOrigin
 @RestController
 @RequestMapping(path = "api/station")
 public class StationController {
@@ -21,22 +24,20 @@ public class StationController {
         System.out.println("-- station controller initialized --");
     }
 
-    /*
     @GetMapping(path = "{stationId}")
-    public StationLong getStation(@PathVariable("stationId") Integer stationId){
+    public Map<String, Object> getStation(@PathVariable("stationId") Integer stationId){
         Optional<Station> station = stationService.getStation(stationId);
-        StationLong station_long = null;
+        Map<String, Object> stationLong = new HashMap<String, Object>();
         if (station.isPresent()){
-            station_long = new StationLong(station.get());
-            station_long.num_departures = journeyService.getNumJourneysFromStation(station.get().getStation_code());
-            station_long.num_returns = journeyService.getNumJourneysToStation(station.get().getStation_code());
+            stationLong.put("name", station.get().getName());
+            stationLong.put("address", station.get().getAddress());
+            stationLong.put("city", station.get().getCity());
+            stationLong.put("pos_x", station.get().getPos_x());
+            stationLong.put("pos_y", station.get().getPos_y());
+            stationLong.put("num_departures", journeyService.getNumJourneysFromStation(station.get().getStation_code()));
+            stationLong.put("num_returns", journeyService.getNumJourneysToStation(station.get().getStation_code()));
         }
-        return station_long;
-    }
-     */
-    @GetMapping(path = "{stationId}")
-    public Optional<Station> getStation(@PathVariable("stationId") Integer stationId){
-        return stationService.getStation(stationId);
+        return stationLong;
     }
     @GetMapping
     public List<Station> getStations(){
@@ -50,6 +51,5 @@ public class StationController {
     public void deleteStation(@PathVariable("stationId") Integer stationId){
         stationService.deleteStation(stationId);
     }
-
 
 }

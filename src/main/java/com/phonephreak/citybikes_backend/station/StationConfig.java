@@ -2,6 +2,8 @@ package com.phonephreak.citybikes_backend.station;
 
 import java.io.FileReader;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +18,7 @@ public class StationConfig {
     CommandLineRunner commandLineRunner(StationRepository repository){
         return args -> {
             // Initialize stations table from CSV file
-            if (!repository.existsById(1)){ // table is empty: initialize
+            if (repository.count() == 0){ // table is empty: initialize
                 System.out.println("Initializing stations table...");
                 Station station;
 
@@ -25,6 +27,7 @@ public class StationConfig {
                 nextLine = reader.readNext(); // skip header
                 String city;
                 
+                List<Station> stationList = new ArrayList<>();
                 while ((nextLine = reader.readNext()) != null){
                     System.out.println(nextLine[4]);
 
@@ -39,8 +42,9 @@ public class StationConfig {
                     station.setPos_x(Float.parseFloat(nextLine[11]));
                     station.setPos_y(Float.parseFloat(nextLine[12]));
 
-                    repository.save(station);
+                    stationList.add(station);
                 }
+                repository.saveAll(stationList);
                 System.out.println("Stations table initialized");
             }
             else {

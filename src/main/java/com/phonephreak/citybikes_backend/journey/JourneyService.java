@@ -8,9 +8,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-
 @Service
 public class JourneyService {
 
@@ -21,18 +18,6 @@ public class JourneyService {
         this.journeyRepository = journeyRepository;
     }
 
-    public Optional<Journey> getJourney(Integer journey_id) {
-        boolean doesExist = journeyRepository.existsById(journey_id);
-        if (!doesExist){
-            throw new IllegalStateException("The journey with the given ID doesn't exist");
-        }
-        return journeyRepository.findById(journey_id);
-    }
-    
-    public List<Journey> getJourneys() {
-        return journeyRepository.findAll();
-    }
-    
     public Page<Journey> getJourneysPage(Integer pageNr, Integer pageLen) {
         Pageable pageRequest = PageRequest.of(pageNr, pageLen);
         return journeyRepository.findAll(pageRequest);
