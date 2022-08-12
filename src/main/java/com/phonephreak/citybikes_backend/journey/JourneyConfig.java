@@ -72,9 +72,9 @@ public class JourneyConfig {
             // Initialize journeys table from CSV file
             if (repository.count() == 0){ // table is empty: initialize
                 System.out.println("Initializing journeys table...");
-                readCSVData(repository, "C:/Users/Stefan/Documents/fullstack22/Solita/2021-05.csv");
-                readCSVData(repository, "C:/Users/Stefan/Documents/fullstack22/Solita/2021-06.csv");
-                readCSVData(repository, "C:/Users/Stefan/Documents/fullstack22/Solita/2021-07.csv");
+                //readCSVData(repository, "C:/Users/Stefan/Documents/fullstack22/Solita/2021-05.csv");
+                //readCSVData(repository, "C:/Users/Stefan/Documents/fullstack22/Solita/2021-06.csv");
+                //readCSVData(repository, "C:/Users/Stefan/Documents/fullstack22/Solita/2021-07.csv");
                 System.out.println("Journeys table initialized");
             }
             else {
