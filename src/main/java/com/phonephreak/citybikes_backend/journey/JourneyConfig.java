@@ -24,9 +24,9 @@ public class JourneyConfig {
         
         final int batchSize = 1000;
         int counter = 0, batchCount = 1;
-        System.out.println("Starting batch #" + batchCount);
         List<Journey> journeyList = new ArrayList<>();
         while ((nextLine = reader.readNext()) != null){
+            /*
             Integer distance = 0;
             try{
                 distance = Integer.parseInt(nextLine[6]);
@@ -35,6 +35,9 @@ public class JourneyConfig {
                 float d = Float.parseFloat(nextLine[6]);
                 distance = (int)(d);
             }
+            */
+            Float distance = 0f;
+            distance = Float.parseFloat(nextLine[6]);
             Integer duration = 0;
             try{
                 duration = Integer.parseInt(nextLine[7]);
@@ -59,7 +62,6 @@ public class JourneyConfig {
                     journeyList.clear();
                     counter = 0;
                     batchCount++;
-                    System.out.println("Starting batch #" + batchCount);
                 }
             }
         }

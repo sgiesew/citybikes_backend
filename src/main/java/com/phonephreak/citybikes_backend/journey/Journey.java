@@ -20,11 +20,11 @@ public class Journey {
     private String departure_station_name;
     private String return_station_code;
     private String return_station_name;
-    private Integer distance;    
+    private Float distance;    
     private Integer duration;    
 
     public Journey(){
-        this.distance = 0;
+        this.distance = 0f;
         this.duration = 0;
     }
 
@@ -32,7 +32,7 @@ public class Journey {
                     String departure_station_name,
                     String return_station_code,
                     String return_station_name,
-                    Integer distance,
+                    Float distance,
                     Integer duration
                     ){
         this.departure_station_code = departure_station_code;
@@ -75,11 +75,11 @@ public class Journey {
         this.return_station_name = return_station_name;
     }
 
-    public void setDistance(Integer distance){
+    public void setDistance(Float distance){
         this.distance = distance;
     }
 
-    public float getDistance(){
+    public Float getDistance(){
         return distance;
     }
 
@@ -87,7 +87,7 @@ public class Journey {
         this.duration = duration;
     }
 
-    public float getDuration(){
+    public Integer getDuration(){
         return duration;
     }
 
