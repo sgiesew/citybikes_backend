@@ -25,6 +25,8 @@ The backend provides these endpoints:
 
   Returns a list of {pageLen} Journey objects from all Journey objects, starting at {pageNr}
 
+StationConfig.java/JourneyConfig.java contain routines that read the data from the (locally stored) CSV files and write it into the database
+
 
 Technologies
 ============
