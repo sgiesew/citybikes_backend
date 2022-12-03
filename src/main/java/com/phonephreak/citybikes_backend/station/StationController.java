@@ -2,8 +2,10 @@ package com.phonephreak.citybikes_backend.station;
 
 import com.phonephreak.citybikes_backend.journey.JourneyService;
 
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,17 +41,23 @@ public class StationController {
         }
         return stationLong;
     }
-    @GetMapping
-    public List<Station> getStations(){
-        return stationService.getStations();
+    
+    @PostMapping
+    public Page<Station> getStationsPage(@RequestBody Map<String, Object> payload) throws ParseException{
+        Integer pageNr = (Integer) payload.get("pageNr");      
+        Integer pageLen = (Integer) payload.get("pageLen");      
+        return stationService.getStationsPage(pageNr, pageLen);
     }
+
+    /*
     @PostMapping
     public void addNewStation(@RequestBody Station station){
         stationService.addNewStation(station);
     }
+    
     @DeleteMapping(path= "{stationId}")
     public void deleteStation(@PathVariable("stationId") Integer stationId){
         stationService.deleteStation(stationId);
     }
-
+    */
 }

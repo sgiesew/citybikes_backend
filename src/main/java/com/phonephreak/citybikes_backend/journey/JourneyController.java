@@ -1,5 +1,14 @@
 package com.phonephreak.citybikes_backend.journey;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.text.ParseException;
+
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,9 +24,13 @@ public class JourneyController {
         System.out.println("-- journey controller initialized --");
     }
 
-    @GetMapping(path = "page/{pageNr}/len/{pageLen}")
-    public Page<Journey> getJourneysPage(@PathVariable("pageNr") Integer pageNr, @PathVariable("pageLen") Integer pageLen){
-        return journeyService.getJourneysPage(pageNr, pageLen);
+    @PostMapping
+    public Page<Journey> getJourneysPage(@RequestBody Map<String, Object> payload) throws ParseException{
+        Integer pageNr = (Integer) payload.get("pageNr");      
+        Integer pageLen = (Integer) payload.get("pageLen");      
+        String sortField = (String) payload.get("sortField");      
+        String sortOrder = (String) payload.get("sortOrder");      
+        return journeyService.getJourneysPage(pageNr, pageLen, sortField, sortOrder);
     }
 
 }

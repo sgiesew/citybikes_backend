@@ -1,6 +1,9 @@
 package com.phonephreak.citybikes_backend.station;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +27,11 @@ public class StationService {
         return stationRepository.findById(station_id);
     }
     
+    public Page<Station> getStationsPage(Integer pageNr, Integer pageLen) {
+        Pageable pageRequest = PageRequest.of(pageNr, pageLen);
+        return stationRepository.findAll(pageRequest);
+    }
+
     public List<Station> getStations() {
         return stationRepository.findAll();
     }

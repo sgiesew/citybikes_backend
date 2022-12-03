@@ -1,5 +1,7 @@
 package com.phonephreak.citybikes_backend.journey;
 
+import java.util.Date;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -16,10 +18,12 @@ public class Journey {
         generator = "journeys_journey_id_seq"
     )
     private Integer journey_id;
-    private String departure_station_code;
-    private String departure_station_name;
-    private String return_station_code;
-    private String return_station_name;
+    private Date departureDate;
+    private Date returnDate;
+    private String departureStationCode;
+    private String departureStationName;
+    private String returnStationCode;
+    private String returnStationName;
     private Float distance;    
     private Integer duration;    
 
@@ -28,51 +32,71 @@ public class Journey {
         this.duration = 0;
     }
 
-    public Journey(String departure_station_code,
-                    String departure_station_name,
-                    String return_station_code,
-                    String return_station_name,
+    public Journey(String departureStationCode,
+                    String departureStationName,
+                    String returnStationCode,
+                    String returnStationName,
                     Float distance,
-                    Integer duration
+                    Integer duration,
+                    Date departureDate,
+                    Date returnDate
                     ){
-        this.departure_station_code = departure_station_code;
-        this.departure_station_name = departure_station_name;
-        this.return_station_code = return_station_code;
-        this.return_station_name = return_station_name;
+        this.departureStationCode = departureStationCode;
+        this.departureStationName = departureStationName;
+        this.returnStationCode = returnStationCode;
+        this.returnStationName = returnStationName;
         this.distance = distance;
         this.duration = duration;
+        this.departureDate = departureDate;
+        this.returnDate = returnDate;
     }
 
-    public String getDeparture_station_code(){
-        return departure_station_code;
+    public Date getDepartureDate(){
+        return departureDate;
     }
 
-    public void setDeparture_station_code(String departure_station_code){
-        this.departure_station_code = departure_station_code;
+    public void setDepartureDate(Date departureDate){
+        this.departureDate = departureDate;
     }
 
-    public String getDeparture_station_name(){
-        return departure_station_name;
+    public Date getReturnDate(){
+        return returnDate;
     }
 
-    public void setDeparture_station_name(String departure_station_name){
-        this.departure_station_name = departure_station_name;
+    public void setReturnDate(Date returnDate){
+        this.returnDate = returnDate;
     }
 
-    public String getReturn_station_code(){
-        return return_station_code;
+    public String getDepartureStationCode(){
+        return departureStationCode;
     }
 
-    public void setReturn_station_code(String return_station_code){
-        this.return_station_code = return_station_code;
+    public void setDepartureStationCode(String departureStationCode){
+        this.departureStationCode = departureStationCode;
     }
 
-    public String getReturn_station_name(){
-        return return_station_name;
+    public String getDepartureStationName(){
+        return departureStationName;
     }
 
-    public void setReturn_station_name(String return_station_name){
-        this.return_station_name = return_station_name;
+    public void setDepartureStationName(String departureStationName){
+        this.departureStationName = departureStationName;
+    }
+
+    public String getReturnStationCode(){
+        return returnStationCode;
+    }
+
+    public void setReturnStationCode(String returnStationCode){
+        this.returnStationCode = returnStationCode;
+    }
+
+    public String getReturnStationName(){
+        return returnStationName;
+    }
+
+    public void setReturnStationName(String returnStationName){
+        this.returnStationName = returnStationName;
     }
 
     public void setDistance(Float distance){

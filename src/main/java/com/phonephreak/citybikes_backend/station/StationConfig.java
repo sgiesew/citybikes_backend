@@ -18,7 +18,7 @@ public class StationConfig {
     CommandLineRunner commandLineRunner(StationRepository repository){
         return args -> {
             // Initialize stations table from CSV file
-            if (false){ //repository.count() == 0){ // table is empty: initialize
+            if (repository.count() == 0){ // table is empty: initialize
                 System.out.println("Initializing stations table...");
                 Station station;
 

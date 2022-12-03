@@ -48,10 +48,10 @@ public class JourneyConfig {
             }
             if (distance >= 10 && duration >= 10){
                 journey = new Journey();
-                journey.setDeparture_station_code(nextLine[2]);
-                journey.setDeparture_station_name(nextLine[3]);
-                journey.setReturn_station_code(nextLine[4]);
-                journey.setReturn_station_name(nextLine[5]);
+                journey.setDepartureStationCode(nextLine[2]);
+                journey.setDepartureStationName(nextLine[3]);
+                journey.setReturnStationCode(nextLine[4]);
+                journey.setReturnStationName(nextLine[5]);
                 journey.setDistance(distance);
                 journey.setDuration(duration);
 
