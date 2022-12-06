@@ -30,7 +30,9 @@ public class JourneyController {
         Integer pageLen = (Integer) payload.get("pageLen");      
         String sortField = (String) payload.get("sortField");      
         String sortOrder = (String) payload.get("sortOrder");      
-        return journeyService.getJourneysPage(pageNr, pageLen, sortField, sortOrder);
+        String filterDeparture = (String) payload.get("filterDeparture");      
+        String filterReturn = (String) payload.get("filterReturn");      
+        return journeyService.getJourneysPage(pageNr, pageLen, sortField, sortOrder, filterDeparture, filterReturn);
     }
 
 }

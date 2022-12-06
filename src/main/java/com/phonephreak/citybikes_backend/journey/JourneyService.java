@@ -27,7 +27,7 @@ public class JourneyService {
         this.journeyRepository = journeyRepository;
     }
 
-    public Page<Journey> getJourneysPage(Integer pageNr, Integer pageLen, String sortField, String sortOrder) {
+    public Page<Journey> getJourneysPage(Integer pageNr, Integer pageLen, String sortField, String sortOrder, String filterDeparture, String filterReturn) {
         Pageable pageRequest;
         if (sortField.equals("") || sortOrder.equals(""))
             pageRequest = PageRequest.of(pageNr, pageLen);
@@ -35,6 +35,37 @@ public class JourneyService {
             pageRequest = PageRequest.of(pageNr, pageLen, Sort.by(sortField));
         else
             pageRequest = PageRequest.of(pageNr, pageLen, Sort.by(sortField).descending());
+
+        if (filterDeparture != null || filterReturn != null){
+            final ExampleMatcher MATCH_ALL = ExampleMatcher
+            .matching()
+            .withMatcher("departureStationName", ExampleMatcher.GenericPropertyMatchers.contains())
+            .withMatcher("returnStationName", ExampleMatcher.GenericPropertyMatchers.contains())
+            .withIgnorePaths("departureDate", "returnDate", "departureStationCode", "returnStationCode", "distance", "duration");
+            Journey journey = new Journey();
+            if (filterDeparture != null){
+                switch (filterDeparture){
+                case "metro":
+                    journey.setDepartureStationName("(M)");
+                    break;
+                case "train":
+                    journey.setDepartureStationName(" asema");
+                    break;
+                }
+            }
+            if (filterReturn != null){
+                switch (filterReturn){
+                case "metro":
+                    journey.setReturnStationName("(M)");
+                    break;
+                case "train":
+                    journey.setReturnStationName(" asema");
+                    break;
+                }
+            }
+            Example<Journey> example = Example.of(journey, MATCH_ALL);
+            return journeyRepository.findAll(example, pageRequest);
+        }
         return journeyRepository.findAll(pageRequest);
     }
 

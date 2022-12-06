@@ -22,7 +22,7 @@ public class StationService {
     public Optional<Station> getStation(Integer station_id) {
         boolean doesExist = stationRepository.existsById(station_id);
         if (!doesExist){
-            throw new IllegalStateException("The station with the given ID doesn't exist");
+            throw new IllegalStateException("A station with this station_id does not exist");
         }
         return stationRepository.findById(station_id);
     }
@@ -30,10 +30,6 @@ public class StationService {
     public Page<Station> getStationsPage(Integer pageNr, Integer pageLen) {
         Pageable pageRequest = PageRequest.of(pageNr, pageLen);
         return stationRepository.findAll(pageRequest);
-    }
-
-    public List<Station> getStations() {
-        return stationRepository.findAll();
     }
 
     public void addNewStation(Station station) {
