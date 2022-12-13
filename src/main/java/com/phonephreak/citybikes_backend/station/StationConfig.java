@@ -32,15 +32,15 @@ public class StationConfig {
                     System.out.println(nextLine[4]);
 
                     station = new Station();
-                    station.setStation_code(nextLine[1]);
+                    station.setStationCode(nextLine[1]);
                     station.setName(nextLine[4]);
                     station.setAddress(nextLine[5]);
                     city = nextLine[7];
                     if (city.length() < 3)
                         city = "Helsinki";
                     station.setCity(city);
-                    station.setPos_x(Float.parseFloat(nextLine[11]));
-                    station.setPos_y(Float.parseFloat(nextLine[12]));
+                    station.setXPos(Float.parseFloat(nextLine[11]));
+                    station.setYPos(Float.parseFloat(nextLine[12]));
 
                     stationList.add(station);
                 }

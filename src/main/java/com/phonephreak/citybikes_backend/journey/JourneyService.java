@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.type.descriptor.jdbc.TimestampWithTimeZoneJdbcType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,19 +30,22 @@ public class JourneyService {
 
     public Page<Journey> getJourneysPage(Integer pageNr, Integer pageLen, String sortField, String sortOrder, String filterDeparture, String filterReturn) {
         Pageable pageRequest;
-        if (sortField.equals("") || sortOrder.equals(""))
+        if (sortField == null || sortOrder == null)
             pageRequest = PageRequest.of(pageNr, pageLen);
         else if (sortOrder.equals("ascend"))
             pageRequest = PageRequest.of(pageNr, pageLen, Sort.by(sortField));
         else
             pageRequest = PageRequest.of(pageNr, pageLen, Sort.by(sortField).descending());
 
-        if (filterDeparture != null || filterReturn != null){
+        if (filterDeparture == null && filterReturn == null){
+            return journeyRepository.findAll(pageRequest);
+        }
+        else {
             final ExampleMatcher MATCH_ALL = ExampleMatcher
-            .matching()
-            .withMatcher("departureStationName", ExampleMatcher.GenericPropertyMatchers.contains())
-            .withMatcher("returnStationName", ExampleMatcher.GenericPropertyMatchers.contains())
-            .withIgnorePaths("departureDate", "returnDate", "departureStationCode", "returnStationCode", "distance", "duration");
+                .matching()
+                .withMatcher("departureStationName", ExampleMatcher.GenericPropertyMatchers.contains())
+                .withMatcher("returnStationName", ExampleMatcher.GenericPropertyMatchers.contains())
+                .withIgnorePaths("departureDate", "returnDate", "departureStationCode", "returnStationCode", "distance", "duration");
             Journey journey = new Journey();
             if (filterDeparture != null){
                 switch (filterDeparture){
@@ -66,7 +70,6 @@ public class JourneyService {
             Example<Journey> example = Example.of(journey, MATCH_ALL);
             return journeyRepository.findAll(example, pageRequest);
         }
-        return journeyRepository.findAll(pageRequest);
     }
 
     public long getNumJourneysFromStation(String stationId){
@@ -77,4 +80,27 @@ public class JourneyService {
         return journeyRepository.countByReturnStationCode(stationId);
     }
 
+    public float getAverageJourneyDistanceFromStation(String stationId){
+        return journeyRepository.getAverageJourneyDistanceFromStation(stationId);
+    }
+
+    public float getAverageJourneyDistanceToStation(String stationId){
+        return journeyRepository.getAverageJourneyDistanceToStation(stationId);
+    }
+
+    public List<String> returnedToFromStationRanked(String stationId){
+        return journeyRepository.returnedToFromStationRanked(stationId);
+    }
+
+    public List<String> departedFromToStationRanked(String stationId){
+        return journeyRepository.departedFromToStationRanked(stationId);
+    }
+
+    public List<Object[]> dailyDeparturesFromStation(String stationId){
+        return journeyRepository.dailyDeparturesFromStation(stationId);
+    }
+
+    public List<Object[]> dailyReturnsToStation(String stationId){
+        return journeyRepository.dailyReturnsToStation(stationId);
+    }
 }

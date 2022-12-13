@@ -26,7 +26,7 @@ public class JourneyController {
 
     @PostMapping
     public Page<Journey> getJourneysPage(@RequestBody Map<String, Object> payload) throws ParseException{
-        Integer pageNr = (Integer) payload.get("pageNr");      
+        Integer pageNr = (Integer) payload.get("curPage");      
         Integer pageLen = (Integer) payload.get("pageLen");      
         String sortField = (String) payload.get("sortField");      
         String sortOrder = (String) payload.get("sortOrder");      

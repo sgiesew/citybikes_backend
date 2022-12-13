@@ -1,6 +1,8 @@
 package com.phonephreak.citybikes_backend.station;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -27,9 +29,22 @@ public class StationService {
         return stationRepository.findById(station_id);
     }
     
-    public Page<Station> getStationsPage(Integer pageNr, Integer pageLen) {
+    public Page<Station> getStationsPage(Integer pageNr, Integer pageLen, String searchTerm, String filterCity) {
         Pageable pageRequest = PageRequest.of(pageNr, pageLen);
-        return stationRepository.findAll(pageRequest);
+        if (searchTerm == null && filterCity == null)
+            return stationRepository.findAll(pageRequest);
+        else {
+            final ExampleMatcher MATCH_ALL = ExampleMatcher
+                .matching()
+                .withMatcher("name", ExampleMatcher.GenericPropertyMatchers.ignoreCase().contains())
+                .withMatcher("city", ExampleMatcher.GenericPropertyMatchers.contains())
+                .withIgnorePaths("stationCode", "xPos", "yPos", "address");
+            Station station = new Station();
+            station.setName(searchTerm);
+            station.setCity(filterCity);
+            Example<Station> example = Example.of(station, MATCH_ALL);
+            return stationRepository.findAll(example, pageRequest);
+        }
     }
 
     public void addNewStation(Station station) {

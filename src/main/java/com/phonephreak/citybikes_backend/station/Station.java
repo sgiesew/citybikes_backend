@@ -16,30 +16,30 @@ public class Station {
         generator = "stations_station_id_seq"
     )
     private Integer station_id;
-    private String station_code;
+    private String stationCode;
     private String name;
     private String address;
     private String city;
-    private float pos_x;    
-    private float pos_y;
+    private float xPos;    
+    private float yPos;
 
     public Station(){
 
     }
 
-    public Station(String station_code,
+    public Station(String stationCode,
                     String name,
                     String address,
                     String city,
-                    float pos_x,
-                    float pos_y
+                    float xPos,
+                    float yPos
                     ){
-        this.station_code = station_code;
+        this.stationCode = stationCode;
         this.name = name;
         this.address = address;
         this.city = city;
-        this.pos_x = pos_x;
-        this.pos_y = pos_y;
+        this.xPos = xPos;
+        this.yPos = yPos;
     }
 
     public Integer getStation_id(){
@@ -50,12 +50,12 @@ public class Station {
         this.station_id = station_id;
     }
 
-    public String getStation_code(){
-        return station_code;
+    public String getStationCode(){
+        return stationCode;
     }
 
-    public void setStation_code(String station_code){
-        this.station_code = station_code;
+    public void setStationCode(String stationCode){
+        this.stationCode = stationCode;
     }
 
     public String getName(){
@@ -82,20 +82,20 @@ public class Station {
         this.city = city;
     }
 
-    public void setPos_x(float pos_x){
-        this.pos_x = pos_x;
+    public void setXPos(float xPos){
+        this.xPos = xPos;
     }
 
-    public float getPos_x(){
-        return pos_x;
+    public float getXPos(){
+        return xPos;
     }
 
-    public void setPos_y(float pos_y){
-        this.pos_y = pos_y;
+    public void setYPos(float yPos){
+        this.yPos = yPos;
     }
 
-    public float getPos_y(){
-        return pos_y;
+    public float getYPos(){
+        return yPos;
     }
 
 }
