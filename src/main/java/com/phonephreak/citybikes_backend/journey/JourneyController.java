@@ -10,6 +10,8 @@ import java.util.Set;
 import java.text.ParseException;
 
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
@@ -24,15 +26,23 @@ public class JourneyController {
         System.out.println("-- journey controller initialized --");
     }
 
-    @PostMapping
-    public Page<Journey> getJourneysPage(@RequestBody Map<String, Object> payload) throws ParseException{
+    @PostMapping(path = "/page")
+    public ResponseEntity<Page<Journey>> getJourneysPage(@RequestBody Map<String, Object> payload) throws ParseException{
         Integer pageNr = (Integer) payload.get("curPage");      
         Integer pageLen = (Integer) payload.get("pageLen");      
         String sortField = (String) payload.get("sortField");      
         String sortOrder = (String) payload.get("sortOrder");      
         String filterDeparture = (String) payload.get("filterDeparture");      
         String filterReturn = (String) payload.get("filterReturn");      
-        return journeyService.getJourneysPage(pageNr, pageLen, sortField, sortOrder, filterDeparture, filterReturn);
+        return ResponseEntity.ok().body(journeyService.getJourneysPage(pageNr, pageLen, sortField, sortOrder, filterDeparture, filterReturn));
+    }
+    @ExceptionHandler
+    public ResponseEntity<HttpStatus> handleException(ParseException e){
+        return new ResponseEntity<HttpStatus>(HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler
+    public ResponseEntity<HttpStatus> handleException(ClassCastException e){
+        return new ResponseEntity<HttpStatus>(HttpStatus.BAD_REQUEST);
     }
 
 }

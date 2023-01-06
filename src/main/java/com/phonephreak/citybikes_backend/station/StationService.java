@@ -28,6 +28,10 @@ public class StationService {
         }
         return stationRepository.findById(station_id);
     }
+
+    public List<Station> getStations(){
+        return stationRepository.findAll();
+    }
     
     public Page<Station> getStationsPage(Integer pageNr, Integer pageLen, String searchTerm, String filterCity) {
         Pageable pageRequest = PageRequest.of(pageNr, pageLen);

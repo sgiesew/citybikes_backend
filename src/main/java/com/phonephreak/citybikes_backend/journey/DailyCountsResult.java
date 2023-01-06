@@ -4,9 +4,9 @@ package com.phonephreak.citybikes_backend.journey;
 public class DailyCountsResult {
     
     private String date;
-    private String count;
+    private long count;
 
-    public DailyCountsResult(String date, String count){
+    public DailyCountsResult(String date, long count){
         this.date = date;
         this.count = count;
     }
@@ -19,11 +19,11 @@ public class DailyCountsResult {
         this.date = date;
     }
 
-    public String getCount(){
+    public long getCount(){
         return this.count;
     }
 
-    public void setCount(String count){
+    public void setCount(long count){
         this.count = count;
     }
 
