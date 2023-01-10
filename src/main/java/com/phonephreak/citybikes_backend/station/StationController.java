@@ -35,8 +35,8 @@ public class StationController {
     }
 
     @GetMapping
-    public List<Station> getStations(){
-        return stationService.getStations();
+    public ResponseEntity<List<Station>> getStations(){
+        return ResponseEntity.ok().body(stationService.getStations());
     }
 
     @GetMapping(path = "{stationId}")
