@@ -1,30 +1,14 @@
 package com.phonephreak.citybikes_backend;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.OverrideAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.RequestBuilder;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.assertj.core.api.Assertions.*;
-
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.phonephreak.citybikes_backend.station.Station;
 
 
 @SpringBootTest
@@ -38,18 +22,14 @@ class CitybikesBackendApplicationTests {
 	private ObjectMapper objectMapper;
 
 	@Test
-	void contextLoads() {
-	}
-
-	@Test
-	void whenStationExists_thenReturns200() throws Exception {
+	void whenGetExistingStation_thenReturns200() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.get("/api/station/111")
     	.contentType("application/json"))
     	.andExpect(status().isOk());
 	}
 
 	@Test
-	void whenStationDoesNotExist_thenReturns404() throws Exception {
+	void whenGetNotExistingStation_thenReturns404() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.get("/api/station/0")
     	.contentType("application/json"))
     	.andExpect(status().isNotFound());
@@ -67,6 +47,31 @@ class CitybikesBackendApplicationTests {
 		mockMvc.perform(MockMvcRequestBuilders.post("/api/journey/page")
     	.contentType("application/json"))
     	.andExpect(status().isBadRequest());
+	}
+
+	@Test
+	void whenStationAdded_thenReturns203() throws Exception {
+		Station station = new Station("998", "X", "X", "X", 20.0f, 60.0f);
+		mockMvc.perform(MockMvcRequestBuilders.post("/api/station")
+    	.contentType("application/json")
+		.content(objectMapper.writeValueAsString(station)))
+    	.andExpect(status().isCreated());
+	}
+
+	@Test
+	void whenStationAddedWithEmptyParameters_thenReturns400() throws Exception {
+		Station station = new Station("", "", "X", "X", 20.0f, 60.0f);
+		mockMvc.perform(MockMvcRequestBuilders.post("/api/station")
+    	.contentType("application/json")
+		.content(objectMapper.writeValueAsString(station)))
+    	.andExpect(status().isBadRequest());
+	}
+
+	@Test
+	void whenDeleteNotExistingStation_thenReturns404() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.delete("/api/station/0")
+    	.contentType("application/json"))
+    	.andExpect(status().isNotFound());
 	}
 
 }

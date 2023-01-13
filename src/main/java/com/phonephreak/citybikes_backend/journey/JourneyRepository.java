@@ -1,14 +1,7 @@
 package com.phonephreak.citybikes_backend.journey;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
-import org.hibernate.type.descriptor.jdbc.TimestampWithTimeZoneJdbcType;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -33,7 +26,5 @@ public interface JourneyRepository extends JpaRepository<Journey, Integer> {
         List<Object[]> dailyDeparturesFromStation(String stationId);
         @Query("SELECT j.returnDate, COUNT(*) FROM Journey j WHERE j.returnStationCode = ?1 GROUP BY j.returnDate")
         List<Object[]> dailyReturnsToStation(String stationId);
-
-        Page<Journey> findByDurationBetween(Pageable pageable, Float d1, Float d2);
 
 }

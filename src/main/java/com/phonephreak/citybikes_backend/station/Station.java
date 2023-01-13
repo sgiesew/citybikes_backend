@@ -1,6 +1,7 @@
 package com.phonephreak.citybikes_backend.station;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table (name = "stations")
@@ -16,7 +17,9 @@ public class Station {
         generator = "stations_station_id_seq"
     )
     private Integer station_id;
+    @NotBlank
     private String stationCode;
+    @NotBlank
     private String name;
     private String address;
     private String city;

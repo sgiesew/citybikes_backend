@@ -3,26 +3,26 @@ package com.phonephreak.citybikes_backend.station;
 import com.phonephreak.citybikes_backend.journey.DailyCountsResult;
 import com.phonephreak.citybikes_backend.journey.JourneyService;
 
+import jakarta.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.lang.reflect.Array;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 
 
 @CrossOrigin
 @RestController
 @RequestMapping(path = "api/station")
+@Validated
 public class StationController {
 
     private final StationService stationService;
@@ -95,15 +95,14 @@ public class StationController {
         return new ResponseEntity<HttpStatus>(HttpStatus.BAD_REQUEST);
     }
 
-    /*
     @PostMapping
-    public void addNewStation(@RequestBody Station station){
-        stationService.addNewStation(station);
+    public ResponseEntity<Station> addNewStation(@Valid @RequestBody Station station){
+        return ResponseEntity.created(null).body(stationService.addNewStation(station));
     }
     
-    @DeleteMapping(path= "{stationId}")
-    public void deleteStation(@PathVariable("stationId") Integer stationId){
+    @DeleteMapping(path = "{stationId}")
+    public ResponseEntity<HttpStatus> deleteStation(@PathVariable("stationId") Integer stationId){
         stationService.deleteStation(stationId);
+        return new ResponseEntity<HttpStatus>(HttpStatus.OK);
     }
-    */
 }

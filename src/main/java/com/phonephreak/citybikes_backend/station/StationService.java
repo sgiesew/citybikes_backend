@@ -51,8 +51,8 @@ public class StationService {
         }
     }
 
-    public void addNewStation(Station station) {
-        stationRepository.save(station);
+    public Station addNewStation(Station station) {
+        return stationRepository.save(station);
     }
 
     public void deleteStation(Integer station_id) {
