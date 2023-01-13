@@ -23,19 +23,9 @@ public class JourneyConfig {
         nextLine = reader.readNext(); // skip header
         
         final int batchSize = 1000;
-        int counter = 0, batchCount = 1;
+        int counter = 0;
         List<Journey> journeyList = new ArrayList<>();
         while ((nextLine = reader.readNext()) != null){
-            /*
-            Integer distance = 0;
-            try{
-                distance = Integer.parseInt(nextLine[6]);
-            }
-            catch(Exception e){
-                float d = Float.parseFloat(nextLine[6]);
-                distance = (int)(d);
-            }
-            */
             Float distance = 0f;
             distance = Float.parseFloat(nextLine[6]);
             Integer duration = 0;
@@ -61,7 +51,6 @@ public class JourneyConfig {
                     repository.saveAll(journeyList);
                     journeyList.clear();
                     counter = 0;
-                    batchCount++;
                 }
             }
         }
@@ -74,9 +63,9 @@ public class JourneyConfig {
             // Initialize journeys table from CSV file
             if (repository.count() == 0){ // table is empty: initialize
                 System.out.println("Initializing journeys table...");
-                //readCSVData(repository, "C:/Users/Stefan/Documents/fullstack22/Solita/2021-05.csv");
-                //readCSVData(repository, "C:/Users/Stefan/Documents/fullstack22/Solita/2021-06.csv");
-                //readCSVData(repository, "C:/Users/Stefan/Documents/fullstack22/Solita/2021-07.csv");
+                readCSVData(repository, "C:/Users/Stefan/Documents/fullstack22/Solita/2021-05.csv");
+                readCSVData(repository, "C:/Users/Stefan/Documents/fullstack22/Solita/2021-06.csv");
+                readCSVData(repository, "C:/Users/Stefan/Documents/fullstack22/Solita/2021-07.csv");
                 System.out.println("Journeys table initialized");
             }
             else {
