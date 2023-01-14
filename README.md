@@ -30,5 +30,5 @@ To run the tests, click the "Actions" tab. In the left pane, click "CI/CD pipeli
 Technologies
 ============
 
-* Java Spring Boot
-* Jpa Repository
+* Java Spring Boot - Spring Boot provides a flexible way to configure Java Beans, XML configurations, and Database Transactions. It provides a powerful batch processing and manages REST endpoints.
+* Spring Data JPA - JPA handles most of the complexity of JDBC-based database access and object-relational mappings. On top of that, Spring Data JPA reduces the amount of boilerplate code required by JPA. That makes the implementation of your persistence layer easier and faster.
