@@ -11,12 +11,12 @@ The backend is already deployed and running in the cloud at https://citybikes-ba
 Features
 ========
 
-The backend provides the endpoints documented in APIdoc.pdf
+The backend provides the endpoints documented in APIdoc.pdf (in this directory)
 
 Tests
 =====
 
-The class CitybikesBackendApplicationTests.java contains these integration test:
+The class CitybikesBackendApplicationTests.java contains these tests:
 - whenGetExistingStation_thenReturns200
 - whenGetNotExistingStation_thenReturns404
 - whenStationsPageParametersMissing_thenReturns400
@@ -32,9 +32,3 @@ Technologies
 
 * Java Spring Boot
 * Jpa Repository
-
-
-TO DO
-=====
-
-* endpoint GET api/station returns list of custom objects with just station name and city
