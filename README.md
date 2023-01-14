@@ -25,7 +25,7 @@ The class CitybikesBackendApplicationTests.java contains these integration test:
 - whenStationAddedWithEmptyParameters_thenReturns400
 - whenDeleteNotExistingStation_thenReturns404
 
-To run the test, click the "Actions" tab. In the left pane, click "CI/CD pipeline". In the main pane, click "Run workflow". 
+To run the tests, click the "Actions" tab. In the left pane, click "CI/CD pipeline". In the main pane, click "Run workflow". 
 
 Technologies
 ============
