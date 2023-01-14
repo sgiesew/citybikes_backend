@@ -50,7 +50,7 @@ class CitybikesBackendApplicationTests {
 	}
 
 	@Test
-	void whenStationAdded_thenReturns203() throws Exception {
+	void whenStationAdded_thenReturns201() throws Exception {
 		Station station = new Station("998", "X", "X", "X", 20.0f, 60.0f);
 		mockMvc.perform(MockMvcRequestBuilders.post("/api/station")
     	.contentType("application/json")
