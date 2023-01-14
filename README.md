@@ -16,7 +16,7 @@ The backend provides the endpoints documented in APIdoc.pdf (in this directory)
 Tests
 =====
 
-The class CitybikesBackendApplicationTests.java contains these tests:
+The class CitybikesBackendApplicationTests.java contains these tests for the endpoints:
 - whenGetExistingStation_thenReturns200
 - whenGetNotExistingStation_thenReturns404
 - whenStationsPageParametersMissing_thenReturns400
