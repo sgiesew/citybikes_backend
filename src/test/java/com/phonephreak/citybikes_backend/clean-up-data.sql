@@ -1,0 +1,1 @@
+DELETE FROM stations WHERE station_code='998'

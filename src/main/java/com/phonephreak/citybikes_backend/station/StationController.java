@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.text.ParseException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -40,37 +39,42 @@ public class StationController {
     }
 
     @GetMapping(path = "{stationId}")
-    public ResponseEntity<Map<String, Object>> getStation(@PathVariable("stationId") Integer stationId){
+    public ResponseEntity<StationDetail> getStation(@PathVariable("stationId") Integer stationId){
         Optional<Station> station = stationService.getStation(stationId);
-        Map<String, Object> stationDetails = new HashMap<String, Object>();
+        StationDetail stationDetails = new StationDetail();
         if (station.isPresent()){
-            stationDetails.put("name", station.get().getName());
-            stationDetails.put("address", station.get().getAddress());
-            stationDetails.put("city", station.get().getCity());
-            stationDetails.put("xPos", station.get().getXPos());
-            stationDetails.put("yPos", station.get().getYPos());
             long numDepartures = journeyService.getNumJourneysFromStation(station.get().getStationCode());
-            stationDetails.put("numDepartures", numDepartures);
+            long averageDepartureDistance = numDepartures > 0 ? (long)Math.floor(journeyService.getAverageJourneyDistanceFromStation(station.get().getStationCode())) : 0;
+            ArrayList<String> returnedToFromStationRanked = numDepartures > 0 ? (ArrayList<String>) journeyService.returnedToFromStationRanked(station.get().getStationCode()) : new ArrayList<String>();
             long numReturns = journeyService.getNumJourneysToStation(station.get().getStationCode());
-            stationDetails.put("numReturns", numReturns);
-            stationDetails.put("averageDepartureDistance", numDepartures > 0 ? Math.floor(journeyService.getAverageJourneyDistanceFromStation(station.get().getStationCode())) : 0);
-            stationDetails.put("returnedToFromStationRanked", numDepartures > 0 ? journeyService.returnedToFromStationRanked(station.get().getStationCode()) : 0);
-            stationDetails.put("averageReturnDistance", numReturns > 0 ? Math.floor(journeyService.getAverageJourneyDistanceToStation(station.get().getStationCode())) : 0);
-            stationDetails.put("departedFromToStationRanked", numReturns > 0 ? journeyService.departedFromToStationRanked(station.get().getStationCode()) : 0);
+            long averageReturnDistance = numReturns > 0 ? (long)Math.floor(journeyService.getAverageJourneyDistanceToStation(station.get().getStationCode())) : 0;
+            ArrayList<String> departedFromToStationRanked = numReturns > 0 ? (ArrayList<String>) journeyService.departedFromToStationRanked(station.get().getStationCode()) : new ArrayList<String>();
             ArrayList<DailyCountsResult> dailyDepartureCounts = new ArrayList<DailyCountsResult>();
             for (Object[] o : journeyService.dailyDeparturesFromStation(station.get().getStationCode())){
                 DailyCountsResult dailyCount = new DailyCountsResult(o[0].toString().substring(0, 10), (long) o[1]);
                 dailyDepartureCounts.add(dailyCount);
             }
-            stationDetails.put("dailyDeparturesFromStation", dailyDepartureCounts);
             ArrayList<DailyCountsResult> dailyReturnCounts = new ArrayList<DailyCountsResult>();
             for (Object[] o : journeyService.dailyReturnsToStation(station.get().getStationCode())){
                 DailyCountsResult dailyCount = new DailyCountsResult(o[0].toString().substring(0, 10), (long) o[1]);
                 dailyReturnCounts.add(dailyCount);
             }
-            stationDetails.put("dailyReturnsToStation", dailyReturnCounts);
+            stationDetails = new StationDetail(
+                station.get().getName(),
+                station.get().getAddress(),
+                station.get().getCity(),
+                station.get().getXPos(),
+                station.get().getYPos(),
+                numDepartures,
+                numReturns,
+                averageDepartureDistance,
+                averageReturnDistance,
+                returnedToFromStationRanked,
+                departedFromToStationRanked,
+                dailyDepartureCounts,
+                dailyReturnCounts
+                );
         }
-        //System.out.println(journeyService.returnedToFromStationRanked(station.get().getStationCode()));
         return ResponseEntity.ok().body(stationDetails);
     }
     @ExceptionHandler
