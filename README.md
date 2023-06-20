@@ -5,38 +5,30 @@ CITYBIKES BACKEND
 Setup
 =====
 
-The backend is already deployed and running on the server at https://citybikes-backend.herokuapp.com, so no more setup steps are needed.
+The backend is already deployed and running in the cloud at https://citybikes-backend.herokuapp.com, so no more setup steps are needed.
 
 
 Features
 ========
 
-The backend provides these endpoints:
+The backend provides the endpoints documented in APIdoc.pdf (in this directory)
 
-* GET api/station
+Tests
+=====
 
-  Returns a list of all Station objects
+The class CitybikesBackendApplicationTests.java contains these tests for the endpoints:
+- whenGetExistingStation_thenReturns200
+- whenGetNotExistingStation_thenReturns404
+- whenStationsPageParametersMissing_thenReturns400
+- whenJourneysPageParametersMissing_thenReturns400
+- whenStationAdded_thenReturns201
+- whenStationAddedWithEmptyParameters_thenReturns400
+- whenDeleteNotExistingStation_thenReturns404
 
-* GET api/station/{stationId}
-
-  Returns a custom object with details and statistics for station {stationId}
-
-* GET api/journey/page/{pageNr}/len/{pageLen}
-
-  Returns a list of {pageLen} Journey objects from all Journey objects, starting at {pageNr}
-
-StationConfig.java/JourneyConfig.java contain routines that read the data from the (locally stored) CSV files and write it into the database
-
+To run the tests, click the "Actions" tab. In the left pane, click "CI/CD pipeline". In the main pane, click "Run workflow". 
 
 Technologies
 ============
 
-* Java Spring Boot
-* JpaRepository
-
-
-TO DO
-=====
-
-* endpoint GET api/station returns list of custom objects with just station name and city
-* make endpoint GET api/station/page/{pageNr}/len/{pageLen} for server-side pagination for list of stations
+* Java Spring Boot -  Spring Boot allows for quick startup of a production-grade, stand-alone application. Spring Boot provides a flexible way to configure Java Beans, XML configurations, and Database Transactions. It provides a powerful batch processing and manages REST endpoints.
+* Spring Data JPA - JPA handles most of the complexity of JDBC-based database access and object-relational mappings. On top of that, Spring Data JPA reduces the amount of boilerplate code required by JPA. That makes the implementation of your persistence layer easier and faster.
