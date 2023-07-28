@@ -3,28 +3,28 @@ package com.phonephreak.citybikes_backend.journey;
 
 public class DailyCountsResult {
     
-    private String date;
-    private long count;
+    private String x;
+    private long y;
 
-    public DailyCountsResult(String date, long count){
-        this.date = date;
-        this.count = count;
+    public DailyCountsResult(String x, long y){
+        this.x = x;
+        this.y = y;
     }
 
-    public String getDate(){
-        return this.date;
+    public String getX(){
+        return this.x;
     }
 
-    public void setDate(String date){
-        this.date = date;
+    public void setX(String x){
+        this.x = x;
     }
 
-    public long getCount(){
-        return this.count;
+    public long getY(){
+        return this.y;
     }
 
-    public void setCount(long count){
-        this.count = count;
+    public void setY(long y){
+        this.y = y;
     }
 
 }

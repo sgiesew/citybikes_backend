@@ -73,7 +73,7 @@ public class StationController {
                 departedFromToStationRanked,
                 dailyDepartureCounts,
                 dailyReturnCounts
-                );
+            );
         }
         return ResponseEntity.ok().body(stationDetails);
     }
@@ -84,9 +84,9 @@ public class StationController {
     
     @PostMapping(path = "/page")
     public ResponseEntity<Page<Station>> getStationsPage(@RequestBody Map<String, Object> payload) throws ParseException{
-        Integer pageNr = (Integer) payload.get("curPage");
-        Integer pageLen = (Integer) payload.get("pageLen");
-        String searchTerm = (String) payload.get("searchTerm");
+        Integer pageNr = (Integer) payload.get("pageIndex");
+        Integer pageLen = (Integer) payload.get("pageSize");
+        String searchTerm = (String) payload.get("globalFilter");
         String filterCity = (String) payload.get("filterCity");
         return ResponseEntity.ok().body(stationService.getStationsPage(pageNr, pageLen, searchTerm, filterCity));
     }

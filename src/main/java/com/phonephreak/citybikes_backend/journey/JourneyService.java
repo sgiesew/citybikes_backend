@@ -36,27 +36,45 @@ public class JourneyService {
         else {
             final ExampleMatcher MATCH_ALL = ExampleMatcher
                 .matching()
-                .withMatcher("departureStationName", ExampleMatcher.GenericPropertyMatchers.contains())
-                .withMatcher("returnStationName", ExampleMatcher.GenericPropertyMatchers.contains())
+                .withMatcher("departureStationName", ExampleMatcher.GenericPropertyMatchers.endsWith())
+                .withMatcher("returnStationName", ExampleMatcher.GenericPropertyMatchers.endsWith())
                 .withIgnorePaths("departureDate", "returnDate", "departureStationCode", "returnStationCode", "distance", "duration");
             Journey journey = new Journey();
             if (filterDeparture != null){
                 switch (filterDeparture){
-                case "metro":
+                case "Metro station":
                     journey.setDepartureStationName("(M)");
                     break;
-                case "train":
-                    journey.setDepartureStationName(" asema");
+                case "Train station":
+                    journey.setDepartureStationName("asema");
+                    break;
+                case "Museum":
+                    journey.setDepartureStationName("museo");
+                    break;
+                case "Stadium":
+                    journey.setDepartureStationName("stadion");
+                    break;
+                case "School":
+                    journey.setDepartureStationName("koulu");
                     break;
                 }
             }
             if (filterReturn != null){
                 switch (filterReturn){
-                case "metro":
+                case "Metro station":
                     journey.setReturnStationName("(M)");
                     break;
-                case "train":
-                    journey.setReturnStationName(" asema");
+                case "Train station":
+                    journey.setReturnStationName("asema");
+                    break;
+                case "Museum":
+                    journey.setReturnStationName("museo");
+                    break;
+                case "Stadium":
+                    journey.setReturnStationName("stadion");
+                    break;
+                case "School":
+                    journey.setReturnStationName("koulu");
                     break;
                 }
             }
