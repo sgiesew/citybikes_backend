@@ -38,9 +38,9 @@ public class JourneyConfig {
             }
             if (distance >= 10 && duration >= 10){
                 journey = new Journey();
-                journey.setDepartureStationCode(nextLine[2]);
+                journey.setDepartureStationId(Integer.parseInt(nextLine[2]));
                 journey.setDepartureStationName(nextLine[3]);
-                journey.setReturnStationCode(nextLine[4]);
+                journey.setReturnStationId(Integer.parseInt(nextLine[4]));
                 journey.setReturnStationName(nextLine[5]);
                 journey.setDistance(distance);
                 journey.setDuration(duration);

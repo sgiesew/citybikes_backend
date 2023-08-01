@@ -32,7 +32,7 @@ public class StationConfig {
                     System.out.println(nextLine[4]);
 
                     station = new Station();
-                    station.setStationCode(nextLine[1]);
+                    station.setStation_id(Integer.parseInt(nextLine[1]));
                     station.setName(nextLine[4]);
                     station.setAddress(nextLine[5]);
                     city = nextLine[7];

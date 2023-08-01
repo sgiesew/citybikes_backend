@@ -26,7 +26,7 @@ class CitybikesBackendApplicationTests {
 
 	@Test
 	void whenGetExistingStation_thenReturns200() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.get("/api/station/111")
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/station/1")
     	.contentType("application/json"))
     	.andExpect(status().isOk());
 	}
@@ -54,7 +54,7 @@ class CitybikesBackendApplicationTests {
 
 	@Test
 	void whenStationAdded_thenReturns201() throws Exception {
-		Station station = new Station("998", "X", "X", "X", 20.0f, 60.0f);
+		Station station = new Station(999, "X", "X", "X", 20.0f, 60.0f);
 		mockMvc.perform(MockMvcRequestBuilders.post("/api/station")
     	.contentType("application/json")
 		.content(objectMapper.writeValueAsString(station)))
@@ -63,7 +63,7 @@ class CitybikesBackendApplicationTests {
 
 	@Test
 	void whenStationAddedWithEmptyParameters_thenReturns400() throws Exception {
-		Station station = new Station("", "", "X", "X", 20.0f, 60.0f);
+		Station station = new Station(999, "", "X", "X", 20.0f, 60.0f);
 		mockMvc.perform(MockMvcRequestBuilders.post("/api/station")
     	.contentType("application/json")
 		.content(objectMapper.writeValueAsString(station)))

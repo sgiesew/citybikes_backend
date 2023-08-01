@@ -43,19 +43,19 @@ public class StationController {
         Optional<Station> station = stationService.getStation(stationId);
         StationDetail stationDetails = new StationDetail();
         if (station.isPresent()){
-            long numDepartures = journeyService.getNumJourneysFromStation(station.get().getStationCode());
-            long averageDepartureDistance = numDepartures > 0 ? (long)Math.floor(journeyService.getAverageJourneyDistanceFromStation(station.get().getStationCode())) : 0;
-            ArrayList<String> returnedToFromStationRanked = numDepartures > 0 ? (ArrayList<String>) journeyService.returnedToFromStationRanked(station.get().getStationCode()) : new ArrayList<String>();
-            long numReturns = journeyService.getNumJourneysToStation(station.get().getStationCode());
-            long averageReturnDistance = numReturns > 0 ? (long)Math.floor(journeyService.getAverageJourneyDistanceToStation(station.get().getStationCode())) : 0;
-            ArrayList<String> departedFromToStationRanked = numReturns > 0 ? (ArrayList<String>) journeyService.departedFromToStationRanked(station.get().getStationCode()) : new ArrayList<String>();
+            long numDepartures = journeyService.getNumJourneysFromStation(stationId);
+            long averageDepartureDistance = numDepartures > 0 ? (long)Math.floor(journeyService.getAverageJourneyDistanceFromStation(stationId)) : 0;
+            ArrayList<String> returnedToFromStationRanked = numDepartures > 0 ? (ArrayList<String>) journeyService.returnedToFromStationRanked(stationId) : new ArrayList<String>();
+            long numReturns = journeyService.getNumJourneysToStation(stationId);
+            long averageReturnDistance = numReturns > 0 ? (long)Math.floor(journeyService.getAverageJourneyDistanceToStation(stationId)) : 0;
+            ArrayList<String> departedFromToStationRanked = numReturns > 0 ? (ArrayList<String>) journeyService.departedFromToStationRanked(stationId) : new ArrayList<String>();
             ArrayList<DailyCountsResult> dailyDepartureCounts = new ArrayList<DailyCountsResult>();
-            for (Object[] o : journeyService.dailyDeparturesFromStation(station.get().getStationCode())){
+            for (Object[] o : journeyService.dailyDeparturesFromStation(stationId)){
                 DailyCountsResult dailyCount = new DailyCountsResult(o[0].toString().substring(0, 10), (long) o[1]);
                 dailyDepartureCounts.add(dailyCount);
             }
             ArrayList<DailyCountsResult> dailyReturnCounts = new ArrayList<DailyCountsResult>();
-            for (Object[] o : journeyService.dailyReturnsToStation(station.get().getStationCode())){
+            for (Object[] o : journeyService.dailyReturnsToStation(stationId)){
                 DailyCountsResult dailyCount = new DailyCountsResult(o[0].toString().substring(0, 10), (long) o[1]);
                 dailyReturnCounts.add(dailyCount);
             }

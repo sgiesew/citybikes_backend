@@ -9,22 +9,22 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface JourneyRepository extends JpaRepository<Journey, Integer> {
 
-        long countByReturnStationCode(String stationId);
-        long countByDepartureStationCode(String stationId);
+        long countByReturnStationId(Integer stationId);
+        long countByDepartureStationId(Integer stationId);
 
-        @Query("SELECT AVG(j.distance) FROM Journey j WHERE j.departureStationCode = ?1")
-        float getAverageJourneyDistanceFromStation(String stationId);
-        @Query("SELECT AVG(j.distance) FROM Journey j WHERE j.returnStationCode = ?1")
-        float getAverageJourneyDistanceToStation(String stationId);
+        @Query("SELECT AVG(j.distance) FROM Journey j WHERE j.departureStationId = ?1")
+        float getAverageJourneyDistanceFromStation(Integer stationId);
+        @Query("SELECT AVG(j.distance) FROM Journey j WHERE j.returnStationId = ?1")
+        float getAverageJourneyDistanceToStation(Integer stationId);
 
-        @Query("SELECT j.returnStationName FROM Journey j WHERE j.departureStationCode = ?1 GROUP BY j.returnStationName ORDER BY COUNT(*) DESC LIMIT 5")
-        List<String> returnedToFromStationRanked(String stationId);
-        @Query("SELECT j.departureStationName FROM Journey j WHERE j.returnStationCode = ?1 GROUP BY j.departureStationName ORDER BY COUNT(*) DESC LIMIT 5")
-        List<String> departedFromToStationRanked(String stationId);
+        @Query("SELECT j.returnStationName FROM Journey j WHERE j.departureStationId = ?1 GROUP BY j.returnStationName ORDER BY COUNT(*) DESC LIMIT 5")
+        List<String> returnedToFromStationRanked(Integer stationId);
+        @Query("SELECT j.departureStationName FROM Journey j WHERE j.returnStationId = ?1 GROUP BY j.departureStationName ORDER BY COUNT(*) DESC LIMIT 5")
+        List<String> departedFromToStationRanked(Integer stationId);
         
-        @Query("SELECT j.departureDate, COUNT(*) FROM Journey j WHERE j.departureStationCode = ?1 GROUP BY j.departureDate")
-        List<Object[]> dailyDeparturesFromStation(String stationId);
-        @Query("SELECT j.returnDate, COUNT(*) FROM Journey j WHERE j.returnStationCode = ?1 GROUP BY j.returnDate")
-        List<Object[]> dailyReturnsToStation(String stationId);
+        @Query("SELECT j.departureDate, COUNT(*) FROM Journey j WHERE j.departureStationId = ?1 GROUP BY j.departureDate ORDER BY j.departureDate")
+        List<Object[]> dailyDeparturesFromStation(Integer stationId);
+        @Query("SELECT j.returnDate, COUNT(*) FROM Journey j WHERE j.returnStationId = ?1 GROUP BY j.returnDate ORDER BY j.returnDate")
+        List<Object[]> dailyReturnsToStation(Integer stationId);
 
 }

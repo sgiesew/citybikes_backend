@@ -20,9 +20,9 @@ public class Journey {
     private Integer journey_id;
     private Date departureDate;
     private Date returnDate;
-    private String departureStationCode;
+    private Integer departureStationId;
     private String departureStationName;
-    private String returnStationCode;
+    private Integer returnStationId;
     private String returnStationName;
     private Float distance;    
     private Integer duration;    
@@ -32,18 +32,18 @@ public class Journey {
         this.duration = 0;
     }
 
-    public Journey(String departureStationCode,
+    public Journey(Integer departureStationId,
                     String departureStationName,
-                    String returnStationCode,
+                    Integer returnStationId,
                     String returnStationName,
                     Float distance,
                     Integer duration,
                     Date departureDate,
                     Date returnDate
                     ){
-        this.departureStationCode = departureStationCode;
+        this.departureStationId = departureStationId;
         this.departureStationName = departureStationName;
-        this.returnStationCode = returnStationCode;
+        this.returnStationId = returnStationId;
         this.returnStationName = returnStationName;
         this.distance = distance;
         this.duration = duration;
@@ -67,12 +67,12 @@ public class Journey {
         this.returnDate = returnDate;
     }
 
-    public String getDepartureStationCode(){
-        return departureStationCode;
+    public Integer getDepartureStationId(){
+        return departureStationId;
     }
 
-    public void setDepartureStationCode(String departureStationCode){
-        this.departureStationCode = departureStationCode;
+    public void setDepartureStationId(Integer departureStationId){
+        this.departureStationId = departureStationId;
     }
 
     public String getDepartureStationName(){
@@ -83,12 +83,12 @@ public class Journey {
         this.departureStationName = departureStationName;
     }
 
-    public String getReturnStationCode(){
-        return returnStationCode;
+    public Integer getReturnStationId(){
+        return returnStationId;
     }
 
-    public void setReturnStationCode(String returnStationCode){
-        this.returnStationCode = returnStationCode;
+    public void setReturnStationId(Integer returnStationId){
+        this.returnStationId = returnStationId;
     }
 
     public String getReturnStationName(){

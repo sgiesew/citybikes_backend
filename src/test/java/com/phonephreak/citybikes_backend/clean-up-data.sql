@@ -1,1 +1,1 @@
-DELETE FROM stations WHERE station_code='998'
+DELETE FROM stations WHERE station_id=999

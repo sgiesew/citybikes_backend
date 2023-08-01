@@ -83,35 +83,35 @@ public class JourneyService {
         }
     }
 
-    public long getNumJourneysFromStation(String stationId){
-        return journeyRepository.countByDepartureStationCode(stationId);
+    public long getNumJourneysFromStation(Integer stationId){
+        return journeyRepository.countByDepartureStationId(stationId);
     }
     
-    public long getNumJourneysToStation(String stationId){
-        return journeyRepository.countByReturnStationCode(stationId);
+    public long getNumJourneysToStation(Integer stationId){
+        return journeyRepository.countByReturnStationId(stationId);
     }
 
-    public float getAverageJourneyDistanceFromStation(String stationId){
+    public float getAverageJourneyDistanceFromStation(Integer stationId){
         return journeyRepository.getAverageJourneyDistanceFromStation(stationId);
     }
 
-    public float getAverageJourneyDistanceToStation(String stationId){
+    public float getAverageJourneyDistanceToStation(Integer stationId){
         return journeyRepository.getAverageJourneyDistanceToStation(stationId);
     }
 
-    public List<String> returnedToFromStationRanked(String stationId){
+    public List<String> returnedToFromStationRanked(Integer stationId){
         return journeyRepository.returnedToFromStationRanked(stationId);
     }
 
-    public List<String> departedFromToStationRanked(String stationId){
+    public List<String> departedFromToStationRanked(Integer stationId){
         return journeyRepository.departedFromToStationRanked(stationId);
     }
 
-    public List<Object[]> dailyDeparturesFromStation(String stationId){
+    public List<Object[]> dailyDeparturesFromStation(Integer stationId){
         return journeyRepository.dailyDeparturesFromStation(stationId);
     }
 
-    public List<Object[]> dailyReturnsToStation(String stationId){
+    public List<Object[]> dailyReturnsToStation(Integer stationId){
         return journeyRepository.dailyReturnsToStation(stationId);
     }
 }

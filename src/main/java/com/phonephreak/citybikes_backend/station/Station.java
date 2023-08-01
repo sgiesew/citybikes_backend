@@ -7,18 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 @Table (name = "stations")
 public class Station {
     @Id
-    @SequenceGenerator(
-        name = "stations_station_id_seq",
-        sequenceName = "stations_station_id_seq",
-        allocationSize = 1
-    )
-    @GeneratedValue(
-        strategy = GenerationType.AUTO,
-        generator = "stations_station_id_seq"
-    )
     private Integer station_id;
-    @NotBlank
-    private String stationCode;
     @NotBlank
     private String name;
     private String address;
@@ -30,14 +19,27 @@ public class Station {
 
     }
 
-    public Station(String stationCode,
+    public Station(Integer station_id,
                     String name,
                     String address,
                     String city,
                     float xPos,
                     float yPos
                     ){
-        this.stationCode = stationCode;
+        this.station_id = station_id;
+        this.name = name;
+        this.address = address;
+        this.city = city;
+        this.xPos = xPos;
+        this.yPos = yPos;
+    }
+
+    public Station(String name,
+                    String address,
+                    String city,
+                    float xPos,
+                    float yPos
+                    ){
         this.name = name;
         this.address = address;
         this.city = city;
@@ -51,14 +53,6 @@ public class Station {
 
     public void setStation_id(Integer station_id){
         this.station_id = station_id;
-    }
-
-    public String getStationCode(){
-        return stationCode;
-    }
-
-    public void setStationCode(String stationCode){
-        this.stationCode = stationCode;
     }
 
     public String getName(){
