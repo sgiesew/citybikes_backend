@@ -49,16 +49,8 @@ public class StationController {
             long numReturns = journeyService.getNumJourneysToStation(stationId);
             long averageReturnDistance = numReturns > 0 ? (long)Math.floor(journeyService.getAverageJourneyDistanceToStation(stationId)) : 0;
             ArrayList<String> departedFromToStationRanked = numReturns > 0 ? (ArrayList<String>) journeyService.departedFromToStationRanked(stationId) : new ArrayList<String>();
-            ArrayList<DailyCountsResult> dailyDepartureCounts = new ArrayList<DailyCountsResult>();
-            for (Object[] o : journeyService.dailyDeparturesFromStation(stationId)){
-                DailyCountsResult dailyCount = new DailyCountsResult(o[0].toString().substring(0, 10), (long) o[1]);
-                dailyDepartureCounts.add(dailyCount);
-            }
-            ArrayList<DailyCountsResult> dailyReturnCounts = new ArrayList<DailyCountsResult>();
-            for (Object[] o : journeyService.dailyReturnsToStation(stationId)){
-                DailyCountsResult dailyCount = new DailyCountsResult(o[0].toString().substring(0, 10), (long) o[1]);
-                dailyReturnCounts.add(dailyCount);
-            }
+            ArrayList<DailyCountsResult> dailyDepartureCounts = (ArrayList<DailyCountsResult>) journeyService.dailyDeparturesFromStation(stationId);
+            ArrayList<DailyCountsResult> dailyReturnCounts = (ArrayList<DailyCountsResult>) journeyService.dailyReturnsToStation(stationId);
             stationDetails = new StationDetail(
                 station.get().getName(),
                 station.get().getAddress(),
@@ -81,7 +73,7 @@ public class StationController {
     public ResponseEntity<HttpStatus> handleException(IllegalStateException e){
         return new ResponseEntity<HttpStatus>(HttpStatus.NOT_FOUND);
     }
-    
+
     @PostMapping(path = "/page")
     public ResponseEntity<Page<Station>> getStationsPage(@RequestBody Map<String, Object> payload) throws ParseException{
         Integer pageNr = (Integer) payload.get("pageIndex");

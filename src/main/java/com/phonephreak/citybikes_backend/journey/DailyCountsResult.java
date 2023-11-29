@@ -1,5 +1,7 @@
 package com.phonephreak.citybikes_backend.journey;
 
+import java.util.Date;
+import java.util.Objects;
 
 public class DailyCountsResult {
     
@@ -8,6 +10,11 @@ public class DailyCountsResult {
 
     public DailyCountsResult(String x, long y){
         this.x = x;
+        this.y = y;
+    }
+
+    public DailyCountsResult(Date x, long y){
+        this.x = x.toString().substring(0, 10);
         this.y = y;
     }
 
@@ -27,4 +34,19 @@ public class DailyCountsResult {
         this.y = y;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        DailyCountsResult d = (DailyCountsResult) o;
+        return x.equals(d.x) && y == d.y;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
+    }
 }
+

@@ -22,9 +22,9 @@ public interface JourneyRepository extends JpaRepository<Journey, Integer> {
         @Query("SELECT j.departureStationName FROM Journey j WHERE j.returnStationId = ?1 GROUP BY j.departureStationName ORDER BY COUNT(*) DESC LIMIT 5")
         List<String> departedFromToStationRanked(Integer stationId);
         
-        @Query("SELECT j.departureDate, COUNT(*) FROM Journey j WHERE j.departureStationId = ?1 GROUP BY j.departureDate ORDER BY j.departureDate")
-        List<Object[]> dailyDeparturesFromStation(Integer stationId);
-        @Query("SELECT j.returnDate, COUNT(*) FROM Journey j WHERE j.returnStationId = ?1 GROUP BY j.returnDate ORDER BY j.returnDate")
-        List<Object[]> dailyReturnsToStation(Integer stationId);
+        @Query("SELECT new com.phonephreak.citybikes_backend.journey.DailyCountsResult(j.departureDate, COUNT(*)) FROM Journey j WHERE j.departureStationId = ?1 GROUP BY j.departureDate ORDER BY j.departureDate")
+        List<DailyCountsResult> dailyDeparturesFromStation(Integer stationId);
+        @Query("SELECT new com.phonephreak.citybikes_backend.journey.DailyCountsResult(j.returnDate, COUNT(*)) FROM Journey j WHERE j.returnStationId = ?1 GROUP BY j.returnDate ORDER BY j.returnDate")
+        List<DailyCountsResult> dailyReturnsToStation(Integer stationId);
 
 }

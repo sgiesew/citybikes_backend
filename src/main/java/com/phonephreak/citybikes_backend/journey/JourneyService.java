@@ -107,11 +107,11 @@ public class JourneyService {
         return journeyRepository.departedFromToStationRanked(stationId);
     }
 
-    public List<Object[]> dailyDeparturesFromStation(Integer stationId){
+    public List<DailyCountsResult> dailyDeparturesFromStation(Integer stationId){
         return journeyRepository.dailyDeparturesFromStation(stationId);
     }
 
-    public List<Object[]> dailyReturnsToStation(Integer stationId){
+    public List<DailyCountsResult> dailyReturnsToStation(Integer stationId){
         return journeyRepository.dailyReturnsToStation(stationId);
     }
 }
